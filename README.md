@@ -1,58 +1,25 @@
 # Trabalho Prático: Pipeline Escalar e Superescalar
 Arquitetura de Computadores III - Engenharia de Computação (PUC Minas)
 
-Este repositório contém as ferramentas de simulação, scripts de automação e o relatório técnico para o estudo de paralelismo em nível de instrução (ILP) em microarquiteturas RISC-V.
+Este repositório contém as sequências de instruções assembly e o relatório técnico final para o estudo de paralelismo em nível de instrução (ILP) em microarquiteturas RISC-V.
 
 ## Estrutura do Projeto
 
-### Automação e Análise (Agentes)
-O projeto utiliza um sistema de agentes Python para processar os dados e gerar o relatório:
-*   `gerenciador_tp.py`: Script principal que coordena o fluxo de trabalho.
-*   `agente_questoes.py`: Resolve as questões técnicas embutidas nos arquivos assembly.
-*   `agente_relatorio.py`: Consolida os resultados e gera o código LaTeX.
-*   `agente_revisor.py`: Realiza a auditoria técnica do conteúdo gerado.
-*   `agent_comparador.py`: Compara integridade entre arquivos.
-*   `agent_inconsistencia.py`: Valida o relatório final contra os requisitos do `main.pdf`.
+### Documentacao
+*   relatorio.pdf: Relatório técnico final consolidado, contendo a análise de hazards, predição de desvios e simulação do Algoritmo de Tomasulo.
+*   relatorio.tex: Código-fonte LaTeX do relatório.
+*   main.pdf: Documento de requisitos e roteiro original do trabalho.
 
-### Documentação
-*   `relatorio.pdf`: Relatório técnico final consolidado.
-*   `relatorio.tex`: Código-fonte LaTeX do relatório.
-*   `main.pdf`: Documento de requisitos e roteiro do trabalho.
+### Simulacoes (Assembly RISC-V)
+*   **Pipeline Escalar (s1_raw_chain.s a s5_branches.s)**: Sequências projetadas para quantificar o impacto de Data Hazards (RAW, WAR, WAW) e Control Hazards, validando a eficácia de técnicas de Forwarding e Predição Dinâmica.
+*   **Pipeline Superescalar (t1_tomasulo_raw.s e t2_tomasulo_war_waw.s)**: Trechos de código para análise de execução fora de ordem (OoO) utilizando o Algoritmo de Tomasulo, demonstrando a resolução de conflitos via Estações de Reserva e RAT.
 
-### Simulações (Assembly RISC-V)
-*   `s1` a `s5`: Sequências para análise de hazards de pipeline escalar.
-*   `t1` e `t2`: Sequências para análise do Algoritmo de Tomasulo (OoO).
+## Reprodução dos Resultados
 
-## Como Reproduzir os Resultados
-
-### Pré-requisitos
-*   Python 3.10+
-*   Distribuição LaTeX (ex: TeX Live) para compilação do relatório.
-
-### Instalação de Dependências
-```bash
-pip install google-generativeai python-dotenv
-```
-
-### Execução do Fluxo de Trabalho
-1.  Configure sua chave de API no arquivo `.env`:
-    ```text
-    GOOGLE_API_KEY=SUA_CHAVE_AQUI
-    ```
-2.  Execute o gerenciador para processar os dados e gerar o `.tex`:
-    ```bash
-    python3 gerenciador_tp.py
-    ```
-3.  Compile o relatório final:
-    ```bash
-    pdflatex relatorio.tex
-    ```
-
-### Validação de Requisitos
-Para garantir que o relatório atende a todas as exigências do roteiro:
-```bash
-python3 agent_inconsistencia.py
-```
+Os resultados apresentados no relatório podem ser validados utilizando o simulador [Ripes](https://github.com/mortbopet/Ripes). Para cada sequência:
+1. Carregue o arquivo .s correspondente no simulador.
+2. Configure o processador para "5-Stage Processor".
+3. Alterne as opções de "Enable Forwarding" e os tipos de "Branch Predictor" conforme as configurações descritas nas tabelas de resultados do relatório.
 
 ## Link do Repositório
-[https://github.com/IagoVRomeiro/AC3-Trabalho](https://github.com/IagoVRomeiro/AC3-Trabalho)
+https://github.com/IagoVRomeiro/AC3-Trabalho
